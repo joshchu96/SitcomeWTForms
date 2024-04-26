@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of all the Characters</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <h1> King of the Hill Characters List </h1>
+
+    <ul>
+        {% for char in chars %} 
+            <li> {{ char.name }} </li>
+        {% endfor %}
+    </ul>
+<!--add a button that will take you to a new character adding form -->
+    <br>
+    <form action="/char/add-form">
+        <button type="submit" class="btn btn-secondary btn-sm"> Add New Character </button>
+    </form>
+
+    <br>
+<!-- List of all the jobs in King of the Hill -->
+    <h2> List of all the Job in the Sitcom </h2>
+        <ul>
+            {% for job in jobs %} 
+                <li> {{ job.name }} has a salary of {{ job.salary }} </li>
+            {% endfor %}
+        </ul>
+<!--create a button to add more jobs-->
+    <br> 
+    <form action ="/job/add-form">
+        <button type="submit" class="btn btn-secondary btn-sm"> Add New Job Position </button>
+    </form>
+    <br>
+
+    <h2> Who Has What Job ATM? </h2>
+    <form action="/char_jobs">
+        <button type="submit" class="btn btn-secondary btn-sm"> Next </button>
+    </form>    
+    
+</body>
+</html>
