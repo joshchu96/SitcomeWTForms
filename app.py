@@ -1,7 +1,8 @@
 from flask import Flask, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, Character, Job, Character_Job_Association
-from forms import AddChar, AddJob
+from forms import AddChar, AddJob, practiceChoice
+
 
 
 app = Flask(__name__)
@@ -75,6 +76,32 @@ def show_char_job():
     return render_template("char-jobs.html", chars =chars )
         
 
+#practice route for selectfields
+@app.route("/user/job-choice")
+def job_choice():
+
+    form = practiceChoice()
+
+    jobs = db.session.query(Job.id,Job.name) #takes the list of jobs object and destructure each idv obj to get the id and name of job. 
+    form.jobs.choices = [(job.name, job.name) for job in jobs] #TODO: why need to create another tuple list formatted for this to just show 1 var. 
+
+    return render_template("choice.html", form = form)
+
+@app.route("/user/<int:char_id>/edit", methods = ["GET","POST"])
+def editChar(char_id):
+    '''Edit the Char Profile Form'''
+
+    char =  Character.query.get_or_404(char_id)
+    form = AddChar(obj = char)
+
+    if form.validate_on_submit():
+        char.name = form.name.data
+        char.age = form.age.data
+        db.session.commit()
+        return redirect("/char-lists")
+
+    else:
+        return render_template("edit_char_form.html", form = form )
 
 
 
